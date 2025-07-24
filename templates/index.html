@@ -6,11 +6,6 @@
     <title>头条文章爬取器(playwright版本)</title>
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='180x180.png') }}"> 
     <link rel="icon" type="image/png" sizes="180x180" href="{{ url_for('static', filename='180x180.png') }}">
-    <!-- <link rel="apple-touch-icon" sizes="180x180" href="../static/180x180.png"> 
-    <link rel="icon" type="image/png" sizes="180x180" href="../static/180x180.png">
-    
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/180x180.png"> 
-    <link rel="icon" type="image/png" sizes="180x180" href="/static/180x180.png"> -->
 
 
     <style>
@@ -535,7 +530,7 @@
     
     <!-- 实际的显示区域 -->
     <div class="container">
-        <h1>头条文章爬取器(Playwright版本)</h1>
+        <h1>头条文章爬取器(Playwright版本-01)</h1>
         
 
         <!-- 或者保留原有的URL输入区域作为备选 -->
@@ -754,7 +749,7 @@
                         // 创建带有letterSpacing为0px的span，包含英文单词
                         const englishSpan = document.createElement('span');
                         englishSpan.style.letterSpacing = '0px';
-                        englishSpan.textContent = match[0];
+                        englishSpan.textContent = match[0]+'\u00A0\u00A0\u00A0\u00A0';
                         fragment.appendChild(englishSpan);
                         
                         lastIndex = pattern.lastIndex;
