@@ -179,8 +179,6 @@ def load_wenzhang_from_url(url):
 
                 generate_static_html(content_final)
 
-                with open("./tmp/tmp.txt", "w", encoding="utf-8") as f:
-                    f.write(content_final)
 
                 return render_template('index.html',content=content_final)
                 
@@ -278,6 +276,14 @@ def generate_static_html(content):
             "../static/180x180.png"
         )
         
+        # 移除Jinja2模板控制语句
+        import re
+        # 移除 {% if error_message %} ... {% endif %} 整个块
+        static_html = re.sub(r'{% if error_message %}.*?{% endif %}', '', static_html, flags=re.DOTALL)
+        # 移除其他可能的Jinja2语法
+        static_html = re.sub(r'{%.*?%}', '', static_html, flags=re.DOTALL)
+        static_html = re.sub(r'{{.*?}}', '', static_html, flags=re.DOTALL)
+        
         # 添加内容到页面中
         if content:
             content_section = f'''
@@ -322,6 +328,8 @@ def generate_static_html(content):
 def serve_latest():
     if os.path.exists("./backup/latest.html"):
         return send_file("./backup/latest.html")
+    else:
+        return render_template('index.html', error_message='暂无最新内容，请先爬取文章')
 
 
 
