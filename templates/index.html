@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F4QEWMDGE9"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-F4QEWMDGE9');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>头条文章爬取器(playwright版本)</title>
@@ -533,14 +542,20 @@
         <h1>头条文章爬取器(Playwright版本-01)</h1>
         
 
-        <!-- 或者保留原有的URL输入区域作为备选 -->
+        <!-- URL输入区域 -->
         <div class="input-container">
             <form method="POST" action="/" id="urlForm">
-                <input type="text" id="urlInput" name="url" placeholder="或直接输入头条文章的网址" style="width: 300px;">
+                <input type="text" id="urlInput" name="url" placeholder="输入头条文章网址或包含URL的文本内容" style="width: 400px;">
                 <button class="jznr_btn" type="submit" style="margin-right:10px;"  style="background-color:#0aeb8a; !important">加载内容</button>
             </form>
-
         </div>
+        
+        <!-- 错误信息显示 -->
+        {% if error_message %}
+        <div style="color: red; text-align: center; margin: 10px 0;">
+            {{ error_message }}
+        </div>
+        {% endif %}
         
         
         <!-- 使用div替代p标签 -->

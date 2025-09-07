@@ -15,13 +15,32 @@ from flask import send_file
 
 app = Flask(__name__)
 
+def extract_url_from_text(text):
+    """从文本中提取URL"""
+    import re
+    # 匹配URL的正则表达式，提取到空格为止
+    url_pattern = r'https?://[^\s]+'
+    matches = re.findall(url_pattern, text)
+    if matches:
+        return matches[0]  # 返回第一个找到的URL
+    return None
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         if 'url' in request.form:
-            url = request.form['url'].strip()
-            return  load_wenzhang_from_url(url)
-
+            user_input = request.form['url'].strip()
+            
+            # 检查输入是否已经是完整的URL
+            if user_input.startswith(('http://', 'https://')):
+                url = user_input
+            else:
+                # 如果不是完整URL，尝试从文本中提取URL
+                url = extract_url_from_text(user_input)
+                if not url:
+                    return render_template('index.html', error_message='未能从输入的文本中提取到有效的URL')
+            
+            return load_wenzhang_from_url(url)
 
     return render_template('index.html')
 
