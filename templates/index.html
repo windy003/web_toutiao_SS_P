@@ -11,8 +11,9 @@
         gtag('config', 'G-F4QEWMDGE9');
     </script>
     <meta charset="UTF-8">
+    <meta name="description" content="头条文章爬取并格式化显示,有没有觉得头条的文章字太密集了,不方便阅读,那这个网站就是为你准备的,试试吧!有问题联系作者:Windy Zhou 微信号:trust030703,喜欢也可以发个红包支持一下!😁">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>头条文章爬取器(playwright版本)</title>
+    <title>头条文章爬取并格式化显示</title>
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='180x180.png') }}"> 
     <link rel="icon" type="image/png" sizes="180x180" href="{{ url_for('static', filename='180x180.png') }}">
 
@@ -539,13 +540,13 @@
     
     <!-- 实际的显示区域 -->
     <div class="container">
-        <h1>头条文章爬取器(Playwright版本-01)</h1>
+        <h2 style="text-align: center;">头条文章爬取并格式化显示</h2>
         
 
         <!-- URL输入区域 -->
-        <div class="input-container">
+        <div class="input-container" ">
             <form method="POST" action="/" id="urlForm">
-                <input type="text" id="urlInput" name="url" placeholder="输入头条文章网址或包含URL的文本内容" style="width: 400px;">
+                <input type="text" id="urlInput" name="url" placeholder="输入头条文章网址或包含URL的文本内容" style="width: 300px;">
                 <button class="jznr_btn" type="submit" style="margin-right:10px;"  style="background-color:#0aeb8a; !important">加载内容</button>
             </form>
         </div>
@@ -557,6 +558,9 @@
         </div>
         {% endif %}
         
+        <p style="margin:20px;">
+            有没有觉得头条的文章字太密集了,不方便阅读,那这个网站就是为你准备的,试试吧!有问题联系作者:Windy Zhou 微信号:trust030703,喜欢也可以发个红包支持一下!&#128513;
+        </p>
         
         <!-- 使用div替代p标签 -->
         <div id="div_tag">
