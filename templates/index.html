@@ -741,17 +741,17 @@
                 textNodes.forEach(textNode => {
                     const text = textNode.nodeValue;
                     
-                    // 检查是否包含英文字符
-                    const regex = /[a-zA-Z0-9\-_\.\/:?=+*()\[\]{},;'"]+/;
+                    // 检查是否包含英文字符或全角符号
+                    const regex = /[a-zA-Z0-9\-_\.\/:?=+*()\[\]{},;'"（）《》【】、！？。，；：""''—…·]+/;
                     if (!regex.test(text)) {
-                        return; // 如果不包含英文，跳过处理
+                        return; // 如果不包含英文或全角符号，跳过处理
                     }
-                    
+
                     // 创建文档片段来保存处理后的内容
                     const fragment = document.createDocumentFragment();
-                    
-                    // 匹配英文单词的正则表达式
-                    const pattern = /(\b[a-zA-Z0-9\-_\.\/:?=+*()\[\]{},;'"]+\b)/g;
+
+                    // 匹配英文单词、特殊符号和全角符号的正则表达式(包括以特殊符号开头的情况)
+                    const pattern = /([a-zA-Z0-9\-_./:?=+*()[\]{},<>&'"（）《》【】、！？。，；：""''—…·]+)/g;
                     
                     let lastIndex = 0;
                     let match;
@@ -768,7 +768,20 @@
                         // 创建带有letterSpacing为0px的span，包含英文单词
                         const englishSpan = document.createElement('span');
                         englishSpan.style.letterSpacing = '0px';
-                        englishSpan.textContent = match[0]+'\u00A0\u00A0\u00A0\u00A0';
+
+                        // 检查匹配内容后面的字符,决定是否添加空格
+                        const nextChar = text.charAt(pattern.lastIndex);
+                        const currentMatch = match[0];
+
+                        // 只有当后面是中文字符时才添加空格，其他情况（英文、数字、符号、空格、结尾）都不添加
+                        if (nextChar && /[\u4e00-\u9fa5]/.test(nextChar)) {
+                            // 后面是中文字符，添加空格
+                            englishSpan.textContent = currentMatch + '\u00A0\u00A0\u00A0\u00A0';
+                        } else {
+                            // 后面不是中文字符，不添加空格
+                            englishSpan.textContent = currentMatch;
+                        }
+
                         fragment.appendChild(englishSpan);
                         
                         lastIndex = pattern.lastIndex;
