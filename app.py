@@ -264,18 +264,23 @@ def scan_element(element,content):
 def generate_static_html(content):
     """生成静态HTML文件"""
     try:
-        
+        # 确保backup目录存在
+        backup_dir = "./backup"
+        if not os.path.exists(backup_dir):
+            os.makedirs(backup_dir)
+            print(f"创建backup目录: {backup_dir}")
+
         # 读取模板文件
         with open("./templates/index.html", "r", encoding="utf-8") as f:
             template_content = f.read()
-        
+
         # 替换模板中的内容
         # 移除Flask模板语法，替换为静态内容
         static_html = template_content.replace(
-            "{{ url_for('static', filename='180x180.png') }}", 
+            "{{ url_for('static', filename='180x180.png') }}",
             "../static/180x180.png"
         )
-        
+
         # 移除Jinja2模板控制语句
         import re
         # 移除 {% if error_message %} ... {% endif %} 整个块
@@ -283,7 +288,7 @@ def generate_static_html(content):
         # 移除其他可能的Jinja2语法
         static_html = re.sub(r'{%.*?%}', '', static_html, flags=re.DOTALL)
         static_html = re.sub(r'{{.*?}}', '', static_html, flags=re.DOTALL)
-        
+
         # 添加内容到页面中
         if content:
             content_section = f'''
