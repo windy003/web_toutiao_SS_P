@@ -1,0 +1,1 @@
+CreateObject("Wscript.Shell").Run "D:\BaiduSyncdisk\software_config\startup\x13y-p.windyzhou.org.cmd", 0, False
