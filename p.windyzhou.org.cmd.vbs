@@ -1,1 +1,0 @@
-CreateObject("Wscript.Shell").Run "D:\files\using\web_toutiao_SS_P\p.windyzhou.org.cmd", 0, False
